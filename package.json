@@ -1,0 +1,18 @@
+{
+  "name": "azul-monitor",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^4.18.2",
+    "googleapis": "^126.0.0"
+  },
+  "description": "├── src/\r │   ├── controllers/\r │   │   └── reporteController.js     # Lógica para manejar POST /reportar\r │   ├── routes/\r │   │   └── api.js                   # Define las rutas /api/reportar, /api/bots, etc.\r │   ├── services/\r │   │   └── reporteManager.js        # Maneja la lógica de almacenamiento, detección de inactivos\r │   ├── utils/\r │   │   └── logger.js                # (Opcional) Utilidad para logs con timestamps\r │   └── index.js                     # Entry point, arranca Express\r ├── .env                             # Configuración (puerto, tiempo de espera, etc.)\r ├── package.json\r └── README.md",
+  "keywords": [],
+  "author": "",
+  "type": "commonjs"
+}

@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  azul:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: azul-monitor
+    restart: always
+    ports:
+      - "4000:4000"  # expone el puerto 4000 para recibir los reportes
+    volumes:
+      - .:/app
+networks:
+  monitor-net:
+    driver: bridge
