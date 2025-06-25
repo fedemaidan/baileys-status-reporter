@@ -4,7 +4,7 @@ const { exec } = require('child_process');
 const problemas = []; // [{ id, problema, timestamp }]
 const cooldowns = new Map(); // Previene múltiples reinicios
 
-function alertas({ id, problema }) {
+async function alertas({ id, problema }) {
   const timestamp = Date.now();
   problemas.push({ id, problema, timestamp });
 
@@ -25,6 +25,8 @@ function manejarFallaApp(id) {
   }
 
   console.log(`🔁 Reiniciando el proceso con pm2 restart ${id}`);
+ 
+  /*
   exec(`pm2 restart ${id}`, (error, stdout, stderr) => {
     if (error) {
       console.error(`❌ Error al reiniciar ${id}:`, error.message);
@@ -32,6 +34,7 @@ function manejarFallaApp(id) {
     }
     console.log(`✅ Proceso ${id} reiniciado. stdout:`, stdout);
   });
+*/
 
   // ⏲️ Espera 1 minuto antes de verificar si volvió a funcionar
   const espera = setTimeout(() => {

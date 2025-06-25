@@ -29,10 +29,8 @@ async function obtenerEstados() {
       const mensaje = `Bot inactivo hace más de ${Math.floor(tiempoInactivo / 1000)} segundos.`;
       const fecha = new Date().toISOString();
 
-      await appendAlertaInactividad({ id, mensaje, fecha });
+      await appendAlertaInactividad({ id, mensaje, fecha }); //GOOGLE SHEETS
 
-      // 🚨 Alerta de falla de app
-      alertas({ id, problema: 'FALLA APP' });
     }
   }
 

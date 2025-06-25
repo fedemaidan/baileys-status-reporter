@@ -3,8 +3,7 @@ const reporteManager = require('../service/reporteManager');
 const recibirReporte = (req, res) => {
   const { id, estado } = req.body;
 
-  // 👉 AÑADIR ESTE LOG PARA VER SI LLEGAN LOS DATOS
-  console.log("📥 Reporte recibido:", { id, estado });
+  console.log("📥 Reporte recibido:", { id });
 
   if (!id || !estado) {
     return res.status(400).json({ error: 'Faltan campos: id o estado' });

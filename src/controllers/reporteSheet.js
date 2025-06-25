@@ -16,17 +16,13 @@ const RANGO = `${SHEET_NAME}!A1:Z`;
 async function appendAlertaInactividad({ id, mensaje, fecha }) {
   try {
     console.log(`📥 Iniciando registro de alerta para ${id}`);
-    console.log(`🗓️ Fecha: ${fecha}`);
-    console.log(`📄 Mensaje: ${mensaje}`);
 
     const rows = await getSheetData(SPREADSHEET_ID, RANGO);
-    console.log(`📊 Filas obtenidas: ${rows.length}`);
 
     const rowIndex = rows.findIndex((row) => row[0] === id);
     const nuevaFila = [id, mensaje, fecha];
 
     if (rowIndex !== -1) {
-      console.log(`♻️ Actualizando fila existente`);
       await updateRow(
         SPREADSHEET_ID,
         [nuevaFila],      // valores a escribir
@@ -34,9 +30,7 @@ async function appendAlertaInactividad({ id, mensaje, fecha }) {
         0,                // columna donde está el ID
         id                // valor del ID a buscar
       );
-      console.log(`🔄 Alerta actualizada para ${id}`);
     } else {
-      console.log(`🆕 Agregando nueva fila`);
       await addRow(SPREADSHEET_ID, nuevaFila, RANGO);
       console.log(`➕ Alerta registrada para ${id}`);
     }
