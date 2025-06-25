@@ -48,7 +48,7 @@ console.log(`\n🔍 conectado: ${conectado}`);
       mensaje = "ERROR EN SESION";
     }
   
-    const fecha = new Date().toISOString();
+    const fecha = new Date().toLocaleString('es-AR', {timeZone: 'America/Argentina/Buenos_Aires'});
 
     console.log(`📤 Registrando estado en hoja de cálculo para ${id}...`);
   

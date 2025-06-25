@@ -1,23 +1,16 @@
-const estados = {}; // { idBot: { estado, recibidoEn } }
-const { appendAlertaInactividad } = require('../controllers/reporteSheet'); // Ajustá la ruta si cambia
+const estados = {};
+const { appendAlertaInactividad } = require('../controllers/reporteSheet');
+const { alertas } = require('../service/alertas');
 
-const TIEMPO_INACTIVIDAD_MS = parseInt(process.env.TIEMPO_INACTIVIDAD_MS) || 120000; // default: 2 minutos
+const TIEMPO_INACTIVIDAD_MS = parseInt(process.env.TIEMPO_INACTIVIDAD_MS) || 120000;
 
-/**
- * Guarda o actualiza el estado de un bot.
- * ✅ Corrige estructura para mantener `estado` como objeto anidado
- */
 function guardarEstado(id, estado) {
   estados[id] = {
-    estado: { ...estado },   // ✅ Se guarda correctamente como propiedad `estado`
+    estado: { ...estado },
     recibidoEn: Date.now()
   };
 }
 
-/**
- * Devuelve el estado de todos los bots, marcando si están activos o inactivos.
- * Si algún bot está inactivo, lo registra en Google Sheets.
- */
 async function obtenerEstados() {
   const ahora = Date.now();
   const resultado = {};
@@ -32,11 +25,14 @@ async function obtenerEstados() {
       segundosDesdeUltimoReporte: Math.floor(tiempoInactivo / 1000)
     };
 
-    // Solo registra si está inactivo
     if (!estaActivo) {
       const mensaje = `Bot inactivo hace más de ${Math.floor(tiempoInactivo / 1000)} segundos.`;
       const fecha = new Date().toISOString();
+
       await appendAlertaInactividad({ id, mensaje, fecha });
+
+      // 🚨 Alerta de falla de app
+      alertas({ id, problema: 'FALLA APP' });
     }
   }
 
@@ -46,5 +42,5 @@ async function obtenerEstados() {
 module.exports = {
   guardarEstado,
   obtenerEstados,
-  estados // para acceder directamente si se necesita
+  estados
 };
